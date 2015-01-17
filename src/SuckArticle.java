@@ -121,6 +121,10 @@ public class SuckArticle {
 		Set<String> keys = new TreeSet<String>();
 
 		keys.add("Axe");
+		keys.add("Guard's_Uniform");
+		keys.add("Fur-Trimmed_Cloak");
+		keys.add("Longsword");
+		keys.add("Milk_of_the_Poppy");
 
 		Collection<Item> items = new ArrayList<Item>();
 
@@ -128,7 +132,14 @@ public class SuckArticle {
 				// "Craftable_Armor",
 				"Craftable Seal" };
 
-		String[] categories = { "zzz",//
+		String[] categories = {
+				"zzz",//
+				"Reliquary", "Embassy", "Practice Yard", "Alchemists'_Guild", "Shipyard", "Glasshouse", "Arbor",
+				"Armory", "Artisan Quarters", "Feast", "Fishery", "Godswood", "Holdfast", "Hunting Lodge", "Market",
+				"Mine", "R'hllor Temple", "Sept", "Shanty", "Siege Works", "Smithy", "Stables", "Tourney Arena", "Treasury",
+				"Village Center", "Warehouse", "Watchtower", "Workshop",
+				//
+
 				"Craftable Armor‏‎", //
 				"Craftable Boon‏‎", //
 				"Craftable Common Armor‏‎", //
@@ -361,7 +372,7 @@ public class SuckArticle {
 
 		out.flush();
 		out.close();
-		
+
 		System.err.println("DONE!!!!");
 	}
 }

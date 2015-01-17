@@ -31,6 +31,7 @@
 		$scope.selected = null;
 		$scope.requirements = [];
 		$scope.qty = {};
+		$scope.buildings = {};
 		for (i in all_items) {
 			$scope.item[all_items[i].name] = all_items[i];
 		}
@@ -38,19 +39,64 @@
 			$scope.selected  = s;
 			$scope.requirements = [];
 			$scope.qty = {};
+			$scope.buildings = {};
 			$scope.recursiveAdd(s, 1);
 		}
 		$scope.recursiveAdd = function(s, n) {
+			var name = s.name;
+			if(!$scope.qty[s.name]) {
+				$scope.requirements.push(s.name);
+				$scope.qty[s.name] = 0;
+			}
+			
+			$scope.qty[s.name] += n;
+			
+			var building;
+			if(s.building) {
+				building = s.building;
+			}
+			else {
+				building = "Resource";
+			}
+
+			if(!$scope.buildings[building]) {
+				$scope.buildings[building] = {
+					name: building,
+					upgradeList: [],
+					upgradeSet: {},
+					resourceName: [],
+					resourceQty: {}
+				}
+			}
+			
+			building = $scope.buildings[building];
+			if(s.upgrade) {
+				if(!building.upgradeSet[s.upgrade]) {
+					building.upgradeSet[s.upgrade] = true;
+					building.upgradeList.push(s.upgrade);
+				}
+			}
+			
+			if(!building.resourceQty[s.name]) {
+				building.resourceQty[s.name] = 0;
+				building.resourceName.push(s.name);
+			}
+			building.resourceQty[s.name] += n;	
+				
 			for(i in s.resource) {
 				var name = s.resource[i].name;
-				if(!$scope.qty[name]) {
-					$scope.requirements.push(name);
-					$scope.qty[name] = 0;
-				}
-				$scope.qty[name] = s.resource[i].qty * n;
-				
 				if(item[name]) {
 					$scope.recursiveAdd(item[name], s.resource[i].qty * n);
+				}
+				else {
+					// add resource
+					$scope.recursiveAdd( 
+						{
+							name: name,
+							building: "(resource)"
+						},
+						s.resource[i].qty * n
+					)
 				}
 			}
 		}
@@ -73,10 +119,17 @@
 		<h1>GoTA item recipe thingy</h1>
 		<p>This page uses data harvested from the Game of Thrones Ascent wiki. All errors are entirely their fault.</p>
 		<div ng-if="selected != null">
-			<p>Crafting requirements for {{selected.name}}
+			<p style="clear: both;">Crafting requirements for {{selected.name}}</p>
 			
-		<div ng-repeat="i in requirements">{{i}}: {{qty[i]}}</div>
-			
+		<div ng-repeat="b in buildings" style="float: left; margin-right: 1.5em;">
+			<div><b>{{b.name}}</b></div>
+			<div ng-if="b.upgradeList.length > 0"><i>
+				Requires:
+				<span ng-repeat="u in b.upgradeList">{{u}}<span ng-if="!$last">, </span></span>
+			</i></div>
+			<div ng-repeat="r in b.resourceName">
+				{{r}} : {{b.resourceQty[r]}}
+			</div>			
 		</div>
 	</div>
 

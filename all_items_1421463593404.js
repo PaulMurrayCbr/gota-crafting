@@ -1,4 +1,4 @@
-var all_items = [
+var all_dependencies = [
 {name: "Alloy Bracelet",silver: 800,time: "15h",building: "Warehouse",upgrade: "Crates",quality: "Rare",
 resource:[{name: "Gold Bracelet",qty: 2,qual: "uncommon",z:null},{name: "Lead",qty: 8,qual: "uncommon",z:null},{name: "Precious Ore",qty: 6,qual: "uncommon",z:null}]},
 {name: "Alloy Chain",silver: 800,time: "15h",building: "Market",upgrade: "Ore Stall",
