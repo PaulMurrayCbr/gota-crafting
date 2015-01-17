@@ -16,7 +16,7 @@
 </style>
 <script type="text/javascript" src="jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="angular.min.js"></script>
-<script type="text/javascript" src="all-items.js"></script>
+<script type="text/javascript" src="GoTA-items.js"></script>
 <script type="text/javascript">
 	var item = {};
 
@@ -29,7 +29,7 @@
 	}
 
 	function _timeStr(s) {
-		if(!s) return "s is [" + s + "]";
+		if(!s) return null;
 	
 		var tt = "";
 		var ttt = 0;
@@ -188,7 +188,7 @@
 			<p style="clear: both;">Crafting requirements for {{selected.name}}:
 			minimum {{_timeStr(maxTime)}}, {{totalCost}}sp</p>
 
-			<div ng-repeat="b in buildings" style="float: left; margin-right: 1.5em;">
+			<div ng-repeat="b in buildings" style="float: left; margin-right: 1.5em; margin-bottom: .5em;">
 				<div>
 					<b>{{b.name}}</b> {{timeStr(b)}}
 				</div>
